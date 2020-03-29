@@ -80,6 +80,12 @@ func WttrIn(locationQuery string) (io.ReadCloser, error) {
 
 // Line 单行天气信息
 func Line(lang, location, format string) (string, error) {
+	if lang == "" {
+		lang = "zh"
+	}
+	if location == "" {
+		location = "成都"
+	}
 	if format == "" {
 		format = "%l: 当前天气%c%C 温度🌡️%t 风速🌬️%w 降水量☔️%p 湿度💦%h 气压🌪%P"
 	}
@@ -97,6 +103,12 @@ func Line(lang, location, format string) (string, error) {
 
 // ASCII 图形天气信息
 func ASCII(lang, location string, q ...string) (string, error) {
+	if lang == "" {
+		lang = "zh"
+	}
+	if location == "" {
+		location = "成都"
+	}
 	query := "0_A_T_F_m_M_p"
 	if len(q) > 0 {
 		query = strings.Join(q, "_")
@@ -115,6 +127,12 @@ func ASCII(lang, location string, q ...string) (string, error) {
 
 // Image 图片天气信息
 func Image(lang, location string, q ...string) (io.ReadCloser, error) {
+	if lang == "" {
+		lang = "zh"
+	}
+	if location == "" {
+		location = "成都"
+	}
 	query := "0_A_F_m_M_p"
 	if len(q) > 0 {
 		query = strings.Join(q, "_")
