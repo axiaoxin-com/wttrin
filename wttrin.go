@@ -30,7 +30,7 @@
 //   1: 返回当前+今天的天气信息
 //   2: 返回当前+今天+明天的天气信息
 //   3: 返回当前+今天+明天+后天的天气信息
-//   q: 不显示底部详细地址
+//   q: 不显示底部详细地址和顶部地址信息的前缀信息
 //   Q: 不显示顶部和底部的地点信息
 //   F: 不显示底部作者项目信息
 //   lang: 天气语言翻译 "az", "bg", "bs", "cy", "cs", "eo", "es", "fi", "ga", "hi", "hr", "hy", "is", "ja", "jv", "ka", "kk", "ko", "ky", "lt", "lv", "mk", "ml", "nl", "fy", "nn", "pt", "pt-br", "sk", "sl", "sr", "sr-lat", "sv", "sw",  "te", "uz", "zh", "zu", "he"
@@ -87,7 +87,7 @@ func Line(lang, location, format string) (string, error) {
 		location = "成都"
 	}
 	if format == "" {
-		format = "%l: 当前天气%c%C 温度🌡️%t 风速🌬️%w 降水量☔️%p 湿度💦%h 气压🌪%P"
+		format = "当前%l:\n天气%c %C\n温度🌡️ %t\n风速🌬️ %w\n湿度💦 %h\n气压🧭 %P\n降水☔️ %p\n月相🌑 +%M%m"
 	}
 	locationQuery := fmt.Sprintf("%s?lang=%s&format=%s", location, lang, url.QueryEscape(format))
 	resp, err := WttrIn(locationQuery)
@@ -133,7 +133,7 @@ func Image(lang, location string, q ...string) (io.ReadCloser, error) {
 	if location == "" {
 		location = "成都"
 	}
-	query := "0_A_F_m_M_p"
+	query := "0_A_F_m_M_p_q"
 	if len(q) > 0 {
 		query = strings.Join(q, "_")
 	}
