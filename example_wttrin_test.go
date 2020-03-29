@@ -1,9 +1,10 @@
 package wttrin_test
 
 import (
-	"github/axiaoxin-com/wttrin"
 	"io/ioutil"
 	"log"
+
+	"github.com/axiaoxin-com/wttrin"
 )
 
 // 原始请求http://wttr.in的示例

@@ -1,8 +1,9 @@
 package wttrin_test
 
 import (
-	"github/axiaoxin-com/wttrin"
 	"log"
+
+	"github.com/axiaoxin-com/wttrin"
 )
 
 // 返回ASCII图形的天气预报示例

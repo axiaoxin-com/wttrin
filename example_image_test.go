@@ -1,10 +1,11 @@
 package wttrin_test
 
 import (
-	"github/axiaoxin-com/wttrin"
 	"io"
 	"log"
 	"os"
+
+	"github.com/axiaoxin-com/wttrin"
 )
 
 // 返回天气预报图片的示例

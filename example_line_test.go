@@ -1,8 +1,9 @@
 package wttrin_test
 
 import (
-	"github/axiaoxin-com/wttrin"
 	"log"
+
+	"github.com/axiaoxin-com/wttrin"
 )
 
 // 单行文字的天气预报示例：
