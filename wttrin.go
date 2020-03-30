@@ -140,7 +140,7 @@ func Image(lang, location string, q ...string) (io.ReadCloser, error) {
 	if location == "" {
 		location = "成都"
 	}
-	query := "0_A_F_m_M_p_q"
+	query := "0_m_p_q"
 	if len(q) > 0 {
 		query = strings.Join(q, "_")
 	}
