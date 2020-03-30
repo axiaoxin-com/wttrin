@@ -4,7 +4,7 @@
 //
 //   ASCII： http://wttr.in/<location>?<query>
 //   图片： http://wttr.in/<location>_<query>.png
-//   单行文本： http://wttr.in/<location>?format=<format>
+//   单行文本： http://wttr.in/<location>?format=<format>&<query>
 //
 // location 是需要查询天气预报的地点，可以使用英文字符串，也可以直接传中文
 //
@@ -18,7 +18,7 @@
 //
 //   A: 返回带颜色的ASCII内容，不加返回的是HTML
 //   n: 表格天气信息只返回中午和夜间，不加返回的是早上、中午、傍晚、夜间的信息
-//   m: 温度展示位摄氏度（默认）
+//   m: 温度展示位摄氏度
 //   u: 温度展示为华氏度，风速等其他值和单位也有对应变化
 //   M: 风速展示为m/s 不加展示为km/h
 //   I: 反转html或ASCII中的颜色
@@ -81,7 +81,7 @@ func WttrIn(locationQuery string) (io.ReadCloser, error) {
 }
 
 // Line 单行天气信息
-func Line(lang, location, format string) (string, error) {
+func Line(lang, location, format string, q ...string) (string, error) {
 	if lang == "" {
 		lang = "zh"
 	}
@@ -91,7 +91,12 @@ func Line(lang, location, format string) (string, error) {
 	if format == "" {
 		format = "当前%l:\n天气%c %C\n温度🌡️ %t\n风速🌬️ %w\n湿度💦 %h\n气压🧭 %P\n降水☔️ %p\n月相🌑 +%M%m"
 	}
-	locationQuery := fmt.Sprintf("%s?lang=%s&format=%s", location, lang, url.QueryEscape(format))
+	query := "m_M"
+	if len(q) > 0 {
+		query = strings.Join(q, "_")
+	}
+
+	locationQuery := fmt.Sprintf("%s?lang=%s&format=%s&%s", location, lang, url.QueryEscape(format), query)
 	resp, err := WttrIn(locationQuery)
 	if err != nil {
 		return "", err
