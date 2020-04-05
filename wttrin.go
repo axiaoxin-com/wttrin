@@ -105,7 +105,11 @@ func Line(lang, location, format string, q ...string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(result), nil
+	line := string(result)
+	if strings.Contains(line, "Unknown location; please try") {
+		return "", errors.New("wttrin Line get location failed")
+	}
+	return line, nil
 }
 
 // ASCII 图形天气信息
