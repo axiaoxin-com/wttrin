@@ -60,16 +60,17 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/axiaoxin-com/logging"
 )
 
 // WttrIn 获取 GET 请求 http://wttr.in 的返回 Body
 func WttrIn(locationQuery string) (io.ReadCloser, error) {
 	wttrinURL := "http://wttr.in/" + locationQuery
-	log.Println("[DEBUG] wttrin request url:", wttrinURL)
+	logging.Debugs(nil, "wttrin request url:", wttrinURL)
 	resp, err := http.Get(wttrinURL)
 	if err != nil {
 		return nil, err
