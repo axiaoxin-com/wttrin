@@ -107,6 +107,9 @@ func Line(lang, location, format string, q ...string) (string, error) {
 		return "", err
 	}
 	line := string(result)
+	if isServiceUnavailable(line) {
+		return "", errors.New(line)
+	}
 	if strings.Contains(line, "Unknown location; please try") {
 		return "", errors.New("wttrin Line get location failed")
 	}
@@ -134,7 +137,11 @@ func ASCII(lang, location string, q ...string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(result), nil
+	ascii := string(result)
+	if isServiceUnavailable(ascii) {
+		return "", errors.New(ascii)
+	}
+	return ascii, nil
 }
 
 // Image 图片天气信息
@@ -151,4 +158,10 @@ func Image(lang, location string, q ...string) (io.ReadCloser, error) {
 	}
 	locationQuery := fmt.Sprintf("%s_lang=%s_%s.png", location, lang, query)
 	return WttrIn(locationQuery)
+}
+
+func isServiceUnavailable(respText string) bool {
+	str1 := "======================================================================================"
+	str2 := "https://twitter.com/igor_chubin"
+	return strings.Contains(respText, str1) && strings.Contains(respText, str2)
 }
