@@ -63,6 +63,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/axiaoxin-com/logging"
 )
@@ -71,7 +72,10 @@ import (
 func WttrIn(locationQuery string) (io.ReadCloser, error) {
 	wttrinURL := "http://wttr.in/" + locationQuery
 	logging.Debugs(nil, "wttrin request url:", wttrinURL)
-	resp, err := http.Get(wttrinURL)
+	client := http.Client{
+		Timeout: 10 * time.Second,
+	}
+	resp, err := client.Get(wttrinURL)
 	if err != nil {
 		return nil, err
 	}
